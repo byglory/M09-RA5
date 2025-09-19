@@ -17,7 +17,7 @@ public class Rot13 {
             System.out.println(xifraRot13(desencriptame) + " => " + desxifraRot13(xifraRot13(desencriptame)));
         }
     }
-    
+
     public static String xifraRot13(String texto) {
         String xifrat="";
         for (int i = 0; i < texto.length(); i++){  
@@ -40,7 +40,7 @@ public class Rot13 {
                     }  
                 }
             }
-            else if (especial){
+            if (especial){
                 xifrat = xifrat + texto.charAt(i);
             }      
         }
@@ -57,29 +57,23 @@ public class Rot13 {
                         desxifrat = desxifrat + miChar[(j - 13 + miChar.length) % miChar.length];
                         especial = false;
                         break;
-                    }
-                    
+                    }   
                 }
             }
-            if (Character.isUpperCase(texto.charAt(i))){
+            else if (Character.isUpperCase(texto.charAt(i))){
                 for(int j = 0; j < maChar.length;j++){
                     if(maChar[j] == texto.charAt(i)){
                         desxifrat = desxifrat + maChar[(j - 13 + maChar.length) % maChar.length];
                         especial = false;
                         break;
                     }
-                    
                 }
             }
-            else if (especial){
+            if (especial){
                 desxifrat = desxifrat + texto.charAt(i);
             }   
         }
         return desxifrat;
-        
-
-    
-        
    }
 }
 
