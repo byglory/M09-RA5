@@ -1,5 +1,5 @@
 public class RotX {
-    final static String lletresMin = "aàábcdeèéfghiìíïjklmnoóòpqrstuúùüvwxyz";
+    final static String lletresMin = "aàábcdeèéfghiìíïjklmnñoóòpqrstuúùüvwxyz";
     final static String lletresMaj = lletresMin.toUpperCase();
     final static char[] miChar = lletresMin.toCharArray();
     final static char[] maChar = lletresMaj.toCharArray();
@@ -11,16 +11,15 @@ public class RotX {
             return;
         }
         System.out.println("Xifrat\n---------");
-        for (int i = 0; i<=largo; i++){
-            System.out.println(xifraRotX(xifra[i], desplacament[i]));
+        for (int i = 0; i < largo; i++){
+            System.out.println("("+desplacament[i]+") " + xifra[i] +" => "+ xifraRotX(xifra[i], desplacament[i]));
         }
         System.out.println("\nDesxifrat\n---------");
-        for (int i = 0; i<=largo; i++){
-            System.out.println(desxifraRotX(xifra[i], desplacament[i]));
+        for (int i = 0; i < largo; i++){
+            System.out.println("("+desplacament[i]+") "  + xifraRotX(xifra[i], desplacament[i]) +" => "+ desxifraRotX(xifraRotX(xifra[i], desplacament[i]),desplacament[i]));
         }
-        System.out.println("\nMissatge xifrat: Úiüht, úiü wx ùxì ív?\n---------");
-        System.out.println(forcaBrutaRotX(xifra[4]));
-        
+        System.out.println("\nMissatge xifrat: Úiüht, úiü wx ùxì ív?\n----------------");
+        forcaBrutaRotX("Úiüht, úiü wx ùxì ív?");
     }
     public static String usaRotX(String cadena , boolean mas, int desplacament ){
         String xifrat="";
@@ -29,18 +28,32 @@ public class RotX {
             if (Character.isLowerCase(cadena.charAt(i))){
                 for(int j = 0; j < miChar.length;j++){
                     if(miChar[j] == cadena.charAt(i)){
-                        xifrat = xifrat + miChar[(j + 13) % miChar.length];
-                        especial = false;
-                        break;
+                        if(mas){
+                            xifrat = xifrat + miChar[(j + desplacament) % miChar.length];
+                            especial = false;
+                            break;
+                        }
+                        else{
+                            xifrat = xifrat + miChar[(j - desplacament + miChar.length) % miChar.length];
+                            especial = false;
+                            break;
+                        }
                     }
                 }
             }
             else if (Character.isUpperCase(cadena.charAt(i))){
                 for(int j = 0; j < maChar.length;j++){
                     if(maChar[j] == cadena.charAt(i)){
-                        xifrat = xifrat + maChar[(j + 13) % maChar.length];
+                        if(mas){
+                            xifrat = xifrat + maChar[(j + desplacament) % maChar.length];
+                            especial = false;
+                            break;
+                        }
+                        else{
+                        xifrat = xifrat + maChar[(j - desplacament + maChar.length) % maChar.length];
                         especial = false;
                         break;
+                        }
                     }  
                 }
             }
@@ -51,45 +64,16 @@ public class RotX {
         return xifrat;
     }
     public static void forcaBrutaRotX(String cadenaXifrada){
-        for (int i = 0; i<= miChar.length; i++) {
-            
+        for (int i = 0; i <= miChar.length; i++) {
+            System.out.println("("+i+")->" + desxifraRotX(cadenaXifrada, i));
         }
     }
     public static String xifraRotX(String cadena, int desplacament) {
         String xifrat = usaRotX(cadena, true, desplacament);
         return xifrat;
     }
-
    public static String desxifraRotX(String cadena, int desplacament) {
-        String desxifrat="";
-        for (int i = 0; i < cadena.length(); i++){   
-            boolean especial = true;
-            if (Character.isLowerCase(cadena.charAt(i))){
-                for(int j = 0; j < miChar.length;j++){
-                    if(miChar[j] == cadena.charAt(i)){
-                        desxifrat = desxifrat + miChar[(j - 13 + miChar.length) % miChar.length];
-                        especial = false;
-                        break;
-                    }   
-                }
-            }
-            else if (Character.isUpperCase(cadena.charAt(i))){
-                for(int j = 0; j < maChar.length;j++){
-                    if(maChar[j] == cadena.charAt(i)){
-                        desxifrat = desxifrat + maChar[(j - 13 + maChar.length) % maChar.length];
-                        especial = false;
-                        break;
-                    }
-                }
-            }
-            if (especial){
-                desxifrat = desxifrat + cadena.charAt(i);
-            }   
-        }
-        return desxifrat;
+        String xifrat = usaRotX(cadena, false, desplacament);
+        return xifrat;
    }
-
 }
-//diferente descifraX cifraX mismo cosa despues
-//cambiar    
-
