@@ -1,8 +1,8 @@
-public class Rot13 {
-     static String lletresMin = "aàábcdeèéfghiìíïjklmnoóòpqrstuúùüvwxyz";
-     static String lletresMaj = lletresMin.toUpperCase();
-     static char[] miChar = lletresMin.toCharArray();
-     static char[] maChar = lletresMaj.toCharArray();
+public class RotX {
+    static String lletresMin = "aàábcdeèéfghiìíïjklmnoóòpqrstuúùüvwxyz";
+    static String lletresMaj = lletresMin.toUpperCase();
+    static char[] miChar = lletresMin.toCharArray();
+    static char[] maChar = lletresMaj.toCharArray();
     public static void main(String[] args) {
         int largo = args.length;
         if (largo <= 0 ){
@@ -76,3 +76,6 @@ public class Rot13 {
         return desxifrat;
    }
 }
+//diferente descifraX cifraX mismo cosa despues
+//cambiar    
+
