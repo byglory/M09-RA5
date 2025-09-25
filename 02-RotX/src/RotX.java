@@ -1,8 +1,6 @@
 public class RotX {
-    final static String lletresMin = "aàábcdeèéfghiìíïjklmnñoóòpqrstuúùüvwxyz";
-    final static String lletresMaj = lletresMin.toUpperCase();
-    final static char[] miChar = lletresMin.toCharArray();
-    final static char[] maChar = lletresMaj.toCharArray();
+    final static char[] miChar = "aàábcdeèéfghiìíïjklmnñoóòpqrstuúùüvwxyz".toCharArray();
+    final static char[] maChar = new String(miChar).toUpperCase().toCharArray();
     public static void main(String[] args) {
         String[] xifra = {"ABC","XYZ","Hola, Mr. calçot","Perdó, per tu què és?"};
         int[] desplacament = {0,2,4,6};
@@ -69,11 +67,9 @@ public class RotX {
         }
     }
     public static String xifraRotX(String cadena, int desplacament) {
-        String xifrat = usaRotX(cadena, true, desplacament);
-        return xifrat;
+        return usaRotX(cadena, true, desplacament);
     }
    public static String desxifraRotX(String cadena, int desplacament) {
-        String xifrat = usaRotX(cadena, false, desplacament);
-        return xifrat;
+        return usaRotX(cadena, false, desplacament);
    }
 }
