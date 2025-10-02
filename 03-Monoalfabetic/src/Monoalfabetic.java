@@ -19,7 +19,6 @@ static final char[] alfabetPermutat = permutaAlfabet(maChar);
         for (int i = 0; i < xifra.length; i++) {
             System.out.println(cadenaXifra[i]+" -> "+desxifraMonoAlfa(cadenaXifra[i]));
         }
-
     }
     public static char[] permutaAlfabet(char[] alfabet){
         ArrayList<Character> list = new ArrayList<>();
