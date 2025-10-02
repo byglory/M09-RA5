@@ -33,10 +33,17 @@ static final char[] alfabetPermutat = permutaAlfabet(maChar);
         return resultado;
     }
     public static  String xifraMonoAlfa(String cadena){
+        return usaMono(cadena, true);
+    }
+    public static String desxifraMonoAlfa(String cadena){
+        return usaMono(cadena, false);
+    }
+    public static  String usaMono(String cadena, boolean xifra){
         String xifrat="";
         for (int i = 0; i < cadena.length(); i++){  
             boolean especial = true; 
             if (Character.isLowerCase(cadena.charAt(i))){
+                if(xifra){
                 for(int j = 0; j < maChar.length;j++){
                     if(Character.toLowerCase(maChar[j]) == cadena.charAt(i)){
                         xifrat = xifrat + Character.toLowerCase(alfabetPermutat[j]);
@@ -44,42 +51,32 @@ static final char[] alfabetPermutat = permutaAlfabet(maChar);
                         break;
                     }
                 }
-            }
-            else if (Character.isUpperCase(cadena.charAt(i))){
-                for(int j = 0; j < maChar.length;j++){
-                    if(maChar[j] == cadena.charAt(i)){
-                        xifrat = xifrat + alfabetPermutat[j];
-                        especial = false;
-                        break;
-                    }  
-                }
-            }
-            if (especial){
-                xifrat = xifrat + cadena.charAt(i);
-            }      
-        }
-        return xifrat;
-    }
-    public static String desxifraMonoAlfa(String cadena){
-        String xifrat="";
-        for (int i = 0; i < cadena.length(); i++){  
-            boolean especial = true; 
-            if (Character.isLowerCase(cadena.charAt(i))){
-                for(int j = 0; j < maChar.length;j++){
+                }else{
+                    for(int j = 0; j < maChar.length;j++){
                     if(Character.toLowerCase(alfabetPermutat[j]) == cadena.charAt(i)){
                         xifrat = xifrat + Character.toLowerCase(maChar[j]);
                         especial = false;
                         break;
                     }
                 }
+                }
             }
             else if (Character.isUpperCase(cadena.charAt(i))){
+                if(xifra){
                 for(int j = 0; j < maChar.length;j++){
+                    if(maChar[j] == cadena.charAt(i)){
+                        xifrat = xifrat + alfabetPermutat[j];
+                        especial = false;
+                        break;
+                    }  
+                }}else{
+                    for(int j = 0; j < maChar.length;j++){
                     if(alfabetPermutat[j] == cadena.charAt(i)){
                         xifrat = xifrat + maChar[j];
                         especial = false;
                         break;
                     }  
+                }
                 }
             }
             if (especial){
