@@ -8,9 +8,9 @@ public class AES {
     public static final String ALGORISME_HASH = "SHA-256";
     public static final String FORMAT_AES = "AES/CBC/PKCS5Padding";
 
-    public static final int MIDA_IV = 16;
-    public static final byte[] iv = new byte[MIDA_IV];
-    public static final String CLAU = "HolaBonaTarda";
+    private static final int MIDA_IV = 16;
+    private static byte[] iv = new byte[MIDA_IV];
+    private static final String CLAU = "LaClauSecretaQueVulguis";
     
     public static IvParameterSpec generaIvParameterSpec(){
         SecureRandom secureRandom = new SecureRandom();
@@ -40,8 +40,28 @@ public class AES {
         // return iv+msgxifrat
         return resultat;
     }
-    public static String desxifraAES(byte[] bMsgXifrat, String password){
-        return "holaprofe";
+    public static String desxifraAES(byte[] bMsgXifrat, String password) throws Exception {
+        //Extreure 1'IV.
+        byte[] ivRebut = new byte[MIDA_IV];
+        System.arraycopy(bMsgXifrat, 0, ivRebut, 0, MIDA_IV);
+        
+        //Extreure la part xifrada.
+        byte[] partXifrada = new byte[bMsgXifrat.length - MIDA_IV];
+        System.arraycopy(bMsgXifrat, MIDA_IV, partXifrada, 0, partXifrada.length);
+        
+        //Fer hash de la clau (password)
+        MessageDigest digest = MessageDigest.getInstance(ALGORISME_HASH);
+        byte[] passwordHash = digest.digest(password.getBytes("UTF-8"));
+        
+        //Desxifrar.
+        SecretKeySpec secretKey = new SecretKeySpec(passwordHash, ALGORISME_XIFRAT);
+        IvParameterSpec ivSpec = new IvParameterSpec(ivRebut);
+        Cipher cipher = Cipher.getInstance(FORMAT_AES);
+        cipher.init(Cipher.DECRYPT_MODE, secretKey, ivSpec);
+        byte[] bytesDesxifrats = cipher.doFinal(partXifrada);
+        
+        //return String desxifrat
+        return new String(bytesDesxifrats, "UTF-8");
     }
     public static void main(String[] args) {
     String msgs[] = {"Lorem ipsum dicet",
