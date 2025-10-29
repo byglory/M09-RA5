@@ -22,6 +22,7 @@ public class XifradorAES implements Xifrador {
             }
             return new TextXifrat(xifraAES(msg, clau));
         } catch (Exception e) {
+            System.err.println("Error en xifrar AES: " + e.getMessage());
             throw new ClauNoSuportada(e.getMessage());
         }
     }
@@ -34,6 +35,7 @@ public class XifradorAES implements Xifrador {
             }
             return desxifraAES(xifrat.getBytes(), clau);
         } catch (Exception e) {
+            System.err.println("Error en desxifrar AES: " + e.getMessage());
             throw new ClauNoSuportada(e.getMessage());
         }
     }

@@ -1,7 +1,4 @@
-import iticbcn.xifratge.AlgorismeFactory;
-import iticbcn.xifratge.ClauNoSuportada;
-import iticbcn.xifratge.TextXifrat;
-import iticbcn.xifratge.Xifrador;
+import iticbcn.xifratge.*;
 
 public class TestXifratge {
 public static void main(String[] args) {
@@ -16,8 +13,6 @@ String[][] claus = { { "Clau Secreta 01" }, { "ErrorClau", null },
 for (int i = 0; i < aFactory.length; i++) {
 AlgorismeFactory alg = aFactory[i];
 String nom = aNames[i];
-- 2 -
-
 Xifrador xifrador = alg.creaXifrador();
 System.out.println("==========================");
 for (String msg : msgs) {

@@ -8,21 +8,30 @@ public class XifradorMonoalfabetic implements Xifrador {
     
     @Override
     public TextXifrat xifra(String msg, String clau) throws ClauNoSuportada {
-        validarClau(clau);
-        return new TextXifrat(xifraMonoAlfa(msg).getBytes());
+        try {
+            validarClau(clau);
+            return new TextXifrat(xifraMonoAlfa(msg).getBytes());
+        } catch (Exception e) {
+            throw new ClauNoSuportada("Error en xifrar: " + e.getMessage());
+        }
     }   
     
     @Override
     public String desxifra(TextXifrat xifrat, String clau) throws ClauNoSuportada {
-        validarClau(clau);
-        return desxifraMonoAlfa(new String(xifrat.getBytes()));
+        try {
+            validarClau(clau);
+            return desxifraMonoAlfa(new String(xifrat.getBytes()));
+        } catch (Exception e) {
+            throw new ClauNoSuportada("Error en desxifrar: " + e.getMessage());
+        }
     }
     
     private void validarClau(String clau) throws ClauNoSuportada {
-        if (clau != null && !clau.isEmpty()) {
-            throw new ClauNoSuportada("No utilitza clau");
+        if (clau != null) {
+            throw new ClauNoSuportada("Xifratge monoalfabetic no suporta clau != null");
         }
     }
+    
     public char[] permutaAlfabet(char[] alfabet){
         ArrayList<Character> list = new ArrayList<>();
         for (int i = 0; i < maChar.length; i++) {
